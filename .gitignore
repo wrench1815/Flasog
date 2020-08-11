@@ -4,3 +4,11 @@ py_modules/
 
 # Ignore vscode files
 .vscode/
+
+# Ignore Flask files
+instance/*
+!instance/.gitignore
+.webassets-cache
+
+# Ignore Python files
+__pycache__/
