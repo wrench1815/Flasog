@@ -1,24 +1,6 @@
-<!-- ******************************************
-*  Author : Hardeep Kumar   
-*  Created On : Wed Aug 12 2020
-*  File : 404.html
-******************************************* -->
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="author" content="Hardeep Kumar" />
-    {% if title %}
-        <title>Flasog - {{ title }}</title>
-    {% else %}
-        <title>Flasog</title>
-    {% endif %}
-  </head>
-
-  <body>
-    <h1>404 Not Found</h1>
-    <p>The resource you are trying to locate does not exist.</p>
-    <p>Or it used to but has been removed.</p>
-  </body>
-</html>
+{% extends "layout.html" %}
+{% block pageContent %}
+  <h1>404 Not Found</h1>
+  <p>The resource you are trying to locate does not exist.</p>
+  <p>Or it used to but has been removed.</p>
+{% endblock pageContent %}
