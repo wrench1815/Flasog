@@ -1,7 +1,6 @@
 # Ignore Python Virtual Environment
 py_modules/
 
-
 # Ignore vscode files
 .vscode/
 
