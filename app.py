@@ -13,12 +13,14 @@ posts = [{
     'author': 'Hardeep Kumar',
     'title': 'Blog Post 1',
     'content': 'First Post Content',
-    'datePublished': '11 Aug, 2020'
+    'datePublished': '11 Aug, 2020',
+    'postCategory': 'Technology'
 }, {
     'author': 'Hardeep Kumar',
     'title': 'Blog Post 2',
     'content': 'Second Post Content',
-    'datePublished': '11 Aug, 2020'
+    'datePublished': '11 Aug, 2020',
+    'postCategory': 'Technology'
 }]
 
 
@@ -39,4 +41,4 @@ def NotFound(e):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
