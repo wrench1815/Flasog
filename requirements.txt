@@ -1,3 +1,4 @@
 Flask
 yapf
 Flask-WTF
+email_validator
