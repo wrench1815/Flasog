@@ -9,6 +9,8 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'fb66c54c92550f163e1307990d402d5b'
+
 posts = [{
     'author': 'Hardeep Kumar',
     'title': 'Blog Post 1',
