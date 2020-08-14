@@ -1,22 +1,36 @@
 {% extends "layout.html" %}
 {% block pageContent %}
-  <div class="container">
-    <form method="POST",action="">
-      {{ form.hidden_tag() }}
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
-      </div>
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+  <div class="form-group border p-4 bg-white shadow">
+    <div class="form-group ">
+      <form method="POST",action="">
+      <legend class="border-bottom mb-4">Register new User</legend>
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+          {{ form.userName.label }}
+          {{ form.userName(class="form-control form-control-lg") }}
+        </div>
+
+        <div class="form-group">
+          {{ form.userEmail.label }}
+          {{ form.userEmail(class="form-control form-control-lg") }}
+        </div>
+        
+        <div class="form-group">
+          {{ form.userPassword.label }}
+          {{ form.userPassword(class="form-control form-control-lg") }}
+        </div>
+        
+        <div class="form-group">
+          {{ form.confirmUserPassword.label }}
+          {{ form.confirmUserPassword(class="form-control form-control-lg") }}
+        </div>
+
+        <div class="form-group">
+          {{ form.submit(class="btn btn-outline-dark") }}
+        </div>
+    </div>
+    <div class="border-top pt-2 bg-white">
+      <small class="text-muted">Already have an account? <a class="ml-1" href="{{ url_for('login') }}">Sign In</a></small>
+    </div>
   </div>
 {% endblock pageContent %}
