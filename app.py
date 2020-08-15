@@ -38,9 +38,14 @@ def about():
     return render_template('about.html', title='About')
 
 
-@app.errorhandler(404)
-def NotFound(e):
-    return render_template('404.html', title='404 not Found')
+@app.route('/blog')
+def blog():
+    return render_template('blog.html', title='Blog')
+
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html', title='Contact me')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -53,10 +58,22 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        if form.userEmail.data == 'hk@flasog.com' and form.userPassword.data == 'admin':
+            flash('Logged in Successfully!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Wrong Credentials! Check Email and Password and Try again.',
+                  'danger')
     return render_template('login.html', title='Login', form=form)
+
+
+@app.errorhandler(404)
+def NotFound(e):
+    return render_template('404.html', title='404 not Found')
 
 
 if __name__ == "__main__":
