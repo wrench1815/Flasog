@@ -10,7 +10,7 @@
             {{ form.userEmail.label(class="form-text") }}
 
             {% if form.userEmail.errors %}
-              {{ form.userEmail(class="from-control form-control-lg is-invalid") }}
+              {{ form.userEmail(class="form-control form-control-lg is-invalid") }}
               <div class="invalid-feedback">
                 {% for error in form.userEmail.errors %}
                   <span>{{ error }}</span>
