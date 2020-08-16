@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect
-from flasog import app
+from flasog import app, db, bcrypt
 from flasog.forms import RegistrationForm, LoginForm
 from flasog.models import User, Post
 
@@ -43,9 +43,14 @@ def contact():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for { form.userName.data } Successfully!',
-              'success')
-        return redirect(url_for('home'))
+        hashedPassword = bcrypt.generate_password_hash(form.userPassword.data)
+        user = User(userName=form.userName.data,
+                    userEmail=form.userEmail.data,
+                    userPassword=hashedPassword)
+        db.session.add(user)
+        db.session.commit()
+        flash('Account Created Successfully! You can now Log In.', 'success')
+        return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
 
