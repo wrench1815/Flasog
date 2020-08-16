@@ -1,16 +1,7 @@
-##################################
-#  Author : Hardeep Kumar
-#  Created On : Tue Aug 11 2020
-#  File : app.py
-#
-#  Main file for Flasog
-##################################
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = 'fb66c54c92550f163e1307990d402d5b'
+from flask import render_template, url_for, flash, redirect
+from flasog import app
+from flasog.forms import RegistrationForm, LoginForm
+from flasog.models import User, Post
 
 posts = [{
     'author': 'Hardeep Kumar',
@@ -74,7 +65,3 @@ def login():
 @app.errorhandler(404)
 def NotFound(e):
     return render_template('404.html', title='404 not Found')
-
-
-if __name__ == "__main__":
-    app.run(debug=True)

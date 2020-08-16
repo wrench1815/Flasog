@@ -1,4 +1,5 @@
 Flask
 yapf
 Flask-WTF
-email_validator
+email-validator
+Flask-SQLAlchemy
