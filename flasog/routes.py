@@ -2,6 +2,7 @@ from flask import render_template, url_for, flash, redirect
 from flasog import app, db, bcrypt
 from flasog.forms import RegistrationForm, LoginForm
 from flasog.models import User, Post
+from flask_login import login_user, current_user, logout_user
 
 posts = [{
     'author': 'Hardeep Kumar',
@@ -41,6 +42,8 @@ def contact():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashedPassword = bcrypt.generate_password_hash(form.userPassword.data)
@@ -56,15 +59,25 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
-        if form.userEmail.data == 'hk@flasog.com' and form.userPassword.data == 'admin':
-            flash('Logged in Successfully!', 'success')
+        user = User.query.filter_by(userEmail=form.userEmail.data).first()
+        if user and bcrypt.check_password_hash(user.userPassword,
+                                               form.userPassword.data):
+            login_user(user, remember=form.remember.data)
             return redirect(url_for('home'))
         else:
             flash('Wrong Credentials! Check Email and Password and Try again.',
                   'danger')
     return render_template('login.html', title='Login', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 
 
 @app.errorhandler(404)
