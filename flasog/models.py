@@ -1,5 +1,10 @@
 from datetime import datetime
-from flasog import db
+from flasog import db, loginManager
+
+
+@loginManager.user_loader 
+def LoadUser(UserId):
+    return User.query.get(int(UserId))
 
 
 class User(db.Model):
