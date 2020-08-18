@@ -1,5 +1,7 @@
-Flask
-yapf
-Flask-WTF
 email-validator
+Flask
+Flask-Bcrypt
+Flask-Login
 Flask-SQLAlchemy
+Flask-WTF
+yapf
