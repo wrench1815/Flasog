@@ -10,5 +10,7 @@ app.config[
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 loginManager = LoginManager(app)
+loginManager.login_view = 'login'
+loginManager.login_message_category = 'info'
 
 from flasog import routes

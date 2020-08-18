@@ -52,6 +52,10 @@
           <div class="navbar-nav">
           {% if current_user.is_authenticated %}
             <li class="nav-item">
+              <a class="btn btn-outline-dark" href="{{ url_for('account') }}">Account</a>
+            </li>
+            <div class="m-1"></div>
+            <li class="nav-item">
               <a class="btn btn-outline-dark" href="{{ url_for('logout') }}">logout</a>
             </li>
           {% else %}

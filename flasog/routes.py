@@ -1,8 +1,8 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, request
 from flasog import app, db, bcrypt
 from flasog.forms import RegistrationForm, LoginForm
 from flasog.models import User, Post
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 posts = [{
     'author': 'Hardeep Kumar',
@@ -67,7 +67,9 @@ def login():
         if user and bcrypt.check_password_hash(user.userPassword,
                                                form.userPassword.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('home'))
+            nextPage = request.args.get('next')
+            return redirect(nextPage) if nextPage else redirect(
+                url_for('home'))
         else:
             flash('Wrong Credentials! Check Email and Password and Try again.',
                   'danger')
@@ -78,6 +80,16 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+
+@app.route('/account')
+@login_required
+def account():
+    imageFile = url_for('static',
+                        filename='profileImages/' + current_user.userImage)
+    return render_template('account.html',
+                           title='Account',
+                           imageFile=imageFile)
 
 
 @app.errorhandler(404)
