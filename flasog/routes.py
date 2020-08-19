@@ -46,10 +46,12 @@ def register():
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashedPassword = bcrypt.generate_password_hash(form.userPassword.data)
-        user = User(userName=form.userName.data,
-                    userEmail=form.userEmail.data,
-                    userPassword=hashedPassword)
+        hashedPassword = bcrypt.generate_password_hash(form.password.data)
+        user = User(first_name=form.first_name.data,
+                    last_name=form.last_name.data,
+                    username=form.username.data,
+                    email=form.email.data,
+                    password=hashedPassword)
         db.session.add(user)
         db.session.commit()
         flash('Account Created Successfully! You can now Log In.', 'success')
@@ -63,9 +65,9 @@ def login():
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(userEmail=form.userEmail.data).first()
-        if user and bcrypt.check_password_hash(user.userPassword,
-                                               form.userPassword.data):
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password,
+                                               form.password.data):
             login_user(user, remember=form.remember.data)
             nextPage = request.args.get('next')
             return redirect(nextPage) if nextPage else redirect(
@@ -86,7 +88,7 @@ def logout():
 @login_required
 def account():
     imageFile = url_for('static',
-                        filename='profileImages/' + current_user.userImage)
+                        filename='profileImages/' + current_user.profile_image)
     return render_template('account.html',
                            title='Account',
                            imageFile=imageFile)
