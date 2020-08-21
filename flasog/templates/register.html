@@ -7,27 +7,28 @@
         <legend class="border-bottom mb-4">Register new User</legend>
         {{ form.hidden_tag() }}
         <div calss="form-group">
-          {{ form.first_name.label(class="form-text") }}
-          {{ form.first_name(class="form-control form-control-lg") }}
+          {{ form.first_name.label(class="form-text ") }}
+          {{ form.first_name(class="form-control mb-4", placeholder="John") }}
         </div>
 
         <div calss="form-group">
           {{ form.last_name.label(class="form-text") }}
-          {{ form.last_name(class="form-control form-control-lg") }}
+          {{ form.last_name(class="form-control mb-4", placeholder="Doe") }}
         </div>
-
+        
+        {# Username Field #}
         <div class="form-group">
           {{ form.username.label(class="form-text") }}
 
           {% if form.username.errors %}
-            {{ form.username(class="form-control form-control-lg is-invalid") }}
+            {{ form.username(class="form-control is-invalid", placeholder="doejohn01") }}
             <div class="invalid-feedback">
               {% for error in form.username.errors %}
                 <span>{{ error }}</span>
               {% endfor %}
             </div>
           {% else %}
-            {{ form.username(class="form-control form-control-lg") }}
+            {{ form.username(class="form-control mb-4", placeholder="doejohn01") }}
           {% endif %}
         </div>
 
@@ -35,14 +36,14 @@
           {{ form.email.label(class="form-text") }}
 
           {% if form.email.errors %}
-            {{ form.email(class="form-control form-control-lg is-invalid") }}
+            {{ form.email(class="form-control is-invalid", placeholder="johndoe@email.com") }}
             <div class="invalid-feedback">
               {% for error in form.email.errors %}
                 <span>{{ error }}</span>
               {% endfor %}
             </div>
           {% else %}
-            {{ form.email(class="form-control form-control-lg") }}
+            {{ form.email(class="form-control mb-4", placeholder="johndoe@email.com") }}
           {% endif %}
         </div>
 
@@ -50,14 +51,14 @@
           {{ form.password.label(class="form-text") }}
           
           {% if form.password.errors %}
-            {{ form.password(class="form-control form-control-lg is-invalid") }}
+            {{ form.password(class="form-control is-invalid") }}
             <div class="invalid-feedback">
               {% for error in form.password.errors %}
                 <span>{{ error }}</span>
               {% endfor %}
             </div>
           {% else %}
-            {{ form.password(class="form-control form-control-lg") }}
+            {{ form.password(class="form-control mb-4") }}
           {% endif %}
         </div>
 
@@ -65,14 +66,14 @@
           {{ form.confirm_password.label(class="form-text") }}
           
           {% if form.confirm_password.errors %}
-            {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+            {{ form.confirm_password(class="form-control is-invalid") }}
             <div class="invalid-feedback">
               {% for error in form.confirm_password.errors %}
                 <span>{{ error }}</span>
               {% endfor %}
             </div>
           {% else %}
-            {{ form.confirm_password(class="form-control form-control-lg") }}
+            {{ form.confirm_password(class="form-control") }}
           {% endif %}
         </div>
       </fieldset>
