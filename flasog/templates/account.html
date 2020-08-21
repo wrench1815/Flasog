@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block pageContent %}
-  <div class="flex bg-white shadow pt-4 pb-4">
+  <div class="flex bg-white shadow pt-4 pb-4" style="border-radius: 12px 12px 0px 12px;">
     <div class="d-flex justify-content-center">
       <img class="rounded-circle border border-secondary shadow" width="100px" alt="{{ current_user.username }}'s Profile Picture" src="{{ imageFile }}">
     </div>
@@ -11,11 +11,11 @@
       </div>
   </div>
   
-  <div class="flex bg-white shadow mt-5 pt-4 pb-4">
+  <div class="flex bg-white shadow mt-5 pt-4 pb-4" style="border-radius: 12px 0px 12px 12px;">
     <div class="container-fluid">
       <h3 style="color: #011627;">User Information</h3>
     </div>
-    <div class="mx-1 border border-primary border-top-0 border-right-0 border-left-0"></div>
+    <div class="mx-1 border border-dark border-top-0 border-right-0 border-left-0"></div>
       <div class="container-fluid pt-4">
         <span><span style="font-size: 1em; font-weight: bolder;">Username: </span>{{ current_user.username }}</span>
       </div>
@@ -23,7 +23,7 @@
         <span><span style="font-size: 1em; font-weight: bolder;">Email: </span>{{ current_user.email }}</span>
       </div>
       <div class="container-fluid pt-4">
-        <span><span style="font-size: 1em; font-weight: bolder;">User Name: </span>{{ current_user.first_name }} {{ current_user.last_name }}</span>
+        <span><span style="font-size: 1em; font-weight: bolder;">Full Name: </span>{{ current_user.first_name }} {{ current_user.last_name }}</span>
       </div>
   </div>
 
