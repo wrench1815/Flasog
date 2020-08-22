@@ -1,3 +1,5 @@
+import os
+import secrets
 from flask import render_template, url_for, flash, redirect, request
 from flasog import app, db, bcrypt
 from flasog.forms import RegistrationForm, LoginForm, UpdateAccountForm
