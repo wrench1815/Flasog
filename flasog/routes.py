@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from flasog import app, db, bcrypt
-from flasog.forms import RegistrationForm, LoginForm
+from flasog.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flasog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -87,11 +87,18 @@ def logout():
 @app.route('/account')
 @login_required
 def account():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.first_name, current_user.last_name, current_user.username, current_user.email = form.first_name.data, form.last_name.data, form.username.data, form.email.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('account'))
     imageFile = url_for('static',
                         filename='profileImages/' + current_user.profile_image)
     return render_template('account.html',
                            title='Account',
-                           imageFile=imageFile)
+                           imageFile=imageFile,
+                           form=form)
 
 
 @app.errorhandler(404)

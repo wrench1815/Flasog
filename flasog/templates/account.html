@@ -6,25 +6,63 @@
     </div>
       <div class="container-fluid text-center pt-4">
         <h1 class="" style="color: #011627;">{{ current_user.username }}</h1>
+        <p class="">{{ current_user.first_name }} {{ current_user.last_name }}</p>
         <p class="text-secondary">{{ current_user.email }}</p>
         <a class="btn btn-outline-dark" href="{{ url_for('logout') }}">logout</a>
       </div>
   </div>
   
-  <div class="flex bg-white shadow mt-5 pt-4 pb-4" style="border-radius: 12px 0px 12px 12px;">
-    <div class="container-fluid">
-      <h3 style="color: #011627;">User Information</h3>
-    </div>
-    <div class="mx-1 border border-dark border-top-0 border-right-0 border-left-0"></div>
-      <div class="container-fluid pt-4">
-        <span><span style="font-size: 1em; font-weight: bolder;">Username: </span>{{ current_user.username }}</span>
-      </div>
-      <div class="container-fluid pt-4">
-        <span><span style="font-size: 1em; font-weight: bolder;">Email: </span>{{ current_user.email }}</span>
-      </div>
-      <div class="container-fluid pt-4">
-        <span><span style="font-size: 1em; font-weight: bolder;">Full Name: </span>{{ current_user.first_name }} {{ current_user.last_name }}</span>
-      </div>
-  </div>
+  {# <div class=" bg-white shadow mt-5 pt-4 pb-4" style="border-radius: 12px 0px 12px 12px;"> #}
 
+  <div class="flex form-group p-4 mt-5 bg-white shadow" style="border-radius: 12px 0px 12px 12px;>
+    <form method="POST" ,action="">
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Register new User</legend>
+        {{ form.hidden_tag() }}
+        <div calss="form-group">
+          {{ form.first_name.label(class="form-text ") }}
+          {{ form.first_name(class="form-control mb-4", placeholder="John") }}
+        </div>
+
+        <div calss="form-group">
+          {{ form.last_name.label(class="form-text") }}
+          {{ form.last_name(class="form-control mb-4", placeholder="Doe") }}
+        </div>
+        
+        {# Username Field #}
+        <div class="form-group">
+          {{ form.username.label(class="form-text") }}
+
+          {% if form.username.errors %}
+            {{ form.username(class="form-control is-invalid", placeholder="doejohn01") }}
+            <div class="invalid-feedback">
+              {% for error in form.username.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.username(class="form-control mb-4", placeholder="doejohn01") }}
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.email.label(class="form-text") }}
+
+          {% if form.email.errors %}
+            {{ form.email(class="form-control is-invalid", placeholder="johndoe@email.com") }}
+            <div class="invalid-feedback">
+              {% for error in form.email.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.email(class="form-control mb-4", placeholder="johndoe@email.com") }}
+          {% endif %}
+        </div>
+      </fieldset>
+      <div class="form-group">
+        {{ form.submit(class="btn btn-outline-dark",formnovalidate=true) }}
+      </div>
+    </form>
+  </div>
 {% endblock pageContent %}
