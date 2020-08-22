@@ -5,7 +5,7 @@ from flasog import app, db, bcrypt
 from flasog.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flasog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
-from werkzeug.utils import secure_filename
+from PIL import Image
 
 posts = [{
     'author': 'Hardeep Kumar',
@@ -92,7 +92,12 @@ def save_profile_picture(form_profile_picture):
     _, pp_ext = os.path.splitext(form_profile_picture.filename)
     pp_name = random_hex + pp_ext
     pp_path = os.path.join(app.root_path, 'static/profileImages', pp_name)
-    form_profile_picture.save(pp_path)
+
+    output_size = (100, 100)
+    scaled_pp = Image.open(form_profile_picture)
+    scaled_pp.thumbnail(output_size)
+
+    scaled_pp.save(pp_path)
     return pp_name
 
 
