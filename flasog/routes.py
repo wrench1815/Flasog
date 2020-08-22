@@ -5,6 +5,7 @@ from flasog import app, db, bcrypt
 from flasog.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flasog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
+from werkzeug.utils import secure_filename
 
 posts = [{
     'author': 'Hardeep Kumar',
@@ -86,24 +87,29 @@ def logout():
     return redirect(url_for('home'))
 
 
+def save_profile_picture(form_profile_picture):
+    random_hex = secrets.token_hex(8)
+    _, pp_ext = os.path.splitext(form_profile_picture.filename)
+    pp_name = random_hex + pp_ext
+    pp_path = os.path.join(app.root_path, 'static/profileImages', pp_name)
+    form_profile_picture.save(pp_path)
+    return pp_name
+
+
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
-        """ current_user.first_name, current_user.last_name, current_user.username, current_user.email = form.first_name.data, form.last_name.data, form.username.data, form.email.data """
-        current_user.first_name = form.first_name.data
-        current_user.last_name = form.last_name.data
-        current_user.username = form.username.data
-        current_user.email = form.email.data
+        if form.profile_picture.data:
+            profile_picture = save_profile_picture(form.profile_picture.data)
+            current_user.profile_image = profile_picture
+        current_user.first_name, current_user.last_name, current_user.username, current_user.email = form.first_name.data, form.last_name.data, form.username.data, form.email.data
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('account'))
     elif request.method == 'GET':
-        form.first_name.data = current_user.first_name
-        form.last_name.data = current_user.last_name
-        form.email.data = current_user.email
-        form.username.data = current_user.username
+        form.first_name.data, form.last_name.data, form.email.data, form.username.data = current_user.first_name, current_user.last_name, current_user.email, current_user.username
     imageFile = url_for('static',
                         filename='profileImages/' + current_user.profile_image)
     return render_template('account.html',
