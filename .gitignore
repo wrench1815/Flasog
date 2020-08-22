@@ -17,3 +17,6 @@ tests/
 
 # database
 site.db
+
+# Temporary static files
+0faca85c30ba34d4.png
