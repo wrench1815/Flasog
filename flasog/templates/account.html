@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block pageContent %}
+  {# shows users information #}
   <div class="flex bg-white shadow pt-4 pb-4" style="border-radius: 12px 12px 0px 12px;">
     <div class="d-flex justify-content-center">
       <img class="rounded-circle border border-secondary shadow" width="100px" alt="{{ current_user.username }}'s Profile Picture" src="{{ imageFile }}">
@@ -11,20 +12,22 @@
         <a class="btn btn-outline-dark" href="{{ url_for('logout') }}">logout</a>
       </div>
   </div>
-  
-  {# <div class=" bg-white shadow mt-5 pt-4 pb-4" style="border-radius: 12px 0px 12px 12px;"> #}
 
+  {# Allows the options to update user profile #}
   <div class="flex form-group p-4 mt-5 bg-white shadow" style="border-radius: 12px 0px 12px 12px;">
     <form method="POST" ,action="" enctype="multipart/form-data">
       <fieldset class="form-group">
         <legend class="border-bottom mb-4">Update Account Info</legend>
         {{ form.hidden_tag() }}
-        <div calss="form-group">
+
+        {# first name field #}
+        <div class="form-group">
           {{ form.first_name.label(class="form-text ") }}
           {{ form.first_name(class="form-control mb-4") }}
         </div>
 
-        <div calss="form-group">
+        {# last name field #}
+        <div class="form-group">
           {{ form.last_name.label(class="form-text") }}
           {{ form.last_name(class="form-control mb-4") }}
         </div>
@@ -45,6 +48,7 @@
           {% endif %}
         </div>
 
+        {# email field #}
         <div class="form-group">
           {{ form.email.label(class="form-text") }}
 
@@ -59,7 +63,8 @@
             {{ form.email(class="form-control mb-4") }}
           {% endif %}
         </div>
-        
+
+        {# profile picture field #}
         <div class="form-group">
           {{ form.profile_picture.label(class="form-text") }}
           {{ form.profile_picture(class="form-control-file mb-4") }}
@@ -70,6 +75,8 @@
           {% endif %}
         </div>
       </fieldset>
+
+      {# update button #}
       <div class="form-group">
         {{ form.submit(class="btn btn-outline-dark",formnovalidate=true) }}
       </div>

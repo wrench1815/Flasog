@@ -6,11 +6,14 @@
       <fieldset class="form-group">
         <legend class="border-bottom mb-4">Register new User</legend>
         {{ form.hidden_tag() }}
+
+        {# First name field #}
         <div calss="form-group">
           {{ form.first_name.label(class="form-text ") }}
           {{ form.first_name(class="form-control mb-4", placeholder="John") }}
         </div>
 
+        {# last name field #}
         <div calss="form-group">
           {{ form.last_name.label(class="form-text") }}
           {{ form.last_name(class="form-control mb-4", placeholder="Doe") }}
@@ -32,6 +35,7 @@
           {% endif %}
         </div>
 
+        {# email field #}
         <div class="form-group">
           {{ form.email.label(class="form-text") }}
 
@@ -47,6 +51,7 @@
           {% endif %}
         </div>
 
+        {# password field #}
         <div class="form-group">
           {{ form.password.label(class="form-text") }}
           
@@ -62,6 +67,7 @@
           {% endif %}
         </div>
 
+        {# confirm password field #}
         <div class="form-group">
           {{ form.confirm_password.label(class="form-text") }}
           
@@ -77,11 +83,15 @@
           {% endif %}
         </div>
       </fieldset>
+
+      {# submit button #}
       <div class="form-group">
         {{ form.submit(class="btn btn-outline-dark",formnovalidate=true) }}
       </div>
     </form>
   </div>
+
+  {# redirect to login page if already have an account #}
   <div class="border-top pt-2 bg-white">
     <small class="text-muted">Already have an account? <a class="ml-1" href="{{ url_for('login') }}">Sign In</a></small>
   </div>

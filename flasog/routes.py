@@ -22,27 +22,32 @@ posts = [{
 }]
 
 
+# Home page route
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template('home.html', posts=posts)
 
 
+# about page route
 @app.route('/about')
 def about():
     return render_template('about.html', title='About me')
 
 
+# blog page route
 @app.route('/blog')
 def blog():
     return render_template('blog.html', title='Blog')
 
 
+# contact page route
 @app.route('/contact')
 def contact():
     return render_template('contact.html', title='Contact me')
 
 
+# register page route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -62,6 +67,7 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
+# login page route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -81,12 +87,15 @@ def login():
     return render_template('login.html', title='Login', form=form)
 
 
+# logout route
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
 
+# function to save uploaded Profile Picture on server
+# after scaling it down to 100x100
 def save_profile_picture(form_profile_picture):
     random_hex = secrets.token_hex(8)
     _, pp_ext = os.path.splitext(form_profile_picture.filename)
@@ -101,6 +110,7 @@ def save_profile_picture(form_profile_picture):
     return pp_name
 
 
+# account page route
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
@@ -123,6 +133,7 @@ def account():
                            form=form)
 
 
+# 404 error handling route
 @app.errorhandler(404)
 def NotFound(e):
     return render_template('404.html', title='404 not Found')
