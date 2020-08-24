@@ -1,4 +1,27 @@
 {% extends "layout.html" %}
 {% block pageContent %}
-  <h1>{{ title }}</h1>
+  {% for post in posts %}
+    <div class="pb-4">
+      <div class="card " style="width: 18rem;">
+        {# <img src="https://source.unsplash.com/600x400/?coding,programming" class="card-img-top" alt="..."> #}
+        <div class="card-body shadow">
+          <div class="">
+            <a class="font-weight-bold p-1" style="font-size: 13px; border-radius: 4px;" href="#">{{ post.post_category }}</a>
+            <hr class="bg-secondary mt-1">
+            <p class="my-1 mx-0" style="font-size: 15px">{{ post.datePublished }}</p>
+          </div>
+          <h2 class="card-title font-weight-bold">{{ post.title }}</h2>
+          <p class="card-text">{{ post.content }}</p>
+          <hr class="bg-secondary mb-0">
+          <div class="flex">
+            <a href="#"><small  href="#">{{ post.author.username }}</small></a>
+            <small> - </small>
+            <small class="text-muted">{{ post.date_posted.strftime('%d-%b-%Y') }}</small>
+          </div>
+          
+          {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
 {% endblock pageContent %}

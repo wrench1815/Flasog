@@ -31,6 +31,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime,
                             nullable=False,
                             default=datetime.utcnow)
+    post_category = db.Column(db.Text, nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):

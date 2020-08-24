@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from flasog.models import User
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
 
@@ -64,3 +64,15 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError(
                     'Email already taken. Choose different Email')
+
+
+class PostForm(FlaskForm):
+    post_title = StringField('Title', validators=[DataRequired()])
+    # post_featured_image = FileField(
+    #     'Featured Image',
+    #     validators=[DataRequired(),
+    #                 FileAllowed(['png', 'jpg', 'svg'])])
+    post_content = TextAreaField('Write Something',
+                                 validators=[DataRequired()])
+    post_category = StringField('Category', validators=[DataRequired()])
+    submit = SubmitField('Post')

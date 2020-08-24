@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block pageContent %}
+  <div class="form-group p-4 bg-white shadow">
+    <div class="form-group">
+      <form method="post", action="">
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">New Post</legend>
+          {{ form.hidden_tag() }}
+
+          {# Post Title field #}
+          <div class="form-group">
+            {{ form.post_title.label(class="form-text") }}
+
+            {% if form.post_title.errors %}
+              {{ form.post_title(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.post_title.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ form.post_title(class="form-control mb-4") }}
+            {% endif %}
+          </div>
+
+          {# Featured Image field #}
+          {# <div class="form-group">
+            {{ form.post_featured_image.label(class="form-text") }}
+            {{ form.post_featured_image(class="form-control-file mb-4") }}
+            {% if form.post_featured_image.errors %}
+              {% for error in form.post_featured_image.errors %}
+                <span class="text-danger">{{ error }}</span>
+              {% endfor %}
+            {% endif %}
+          </div> #}
+
+          {# Post Content field #}
+          <div class="form-group">
+            {{ form.post_content.label(class="form-text") }}
+            
+            {% if form.post_content.errors %}
+              {{ form.post_content(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.post_content.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ form.post_content(class="form-control mb-4") }}
+            {% endif %}
+          </div>
+
+          {# Post Category field #}
+          <div class="form-group">
+            {{ form.post_category.label(class="form-text") }}
+
+            {% if form.post_category.errors %}
+              {{ form.post_category(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.post_category.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ form.post_category(class="form-control mb-4") }}
+            {% endif %}
+          </div>
+        </fieldset>
+        <div class="form-group">
+          {{ form.submit(class="btn btn-outline-dark", formnovalidate=true) }}
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock pageContent %}

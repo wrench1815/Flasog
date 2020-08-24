@@ -2,31 +2,17 @@ import os
 import secrets
 from flask import render_template, url_for, flash, redirect, request
 from flasog import app, db, bcrypt
-from flasog.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from flasog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from flasog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 from PIL import Image
-
-posts = [{
-    'author': 'Hardeep Kumar',
-    'title': 'Blog Post 1',
-    'content': 'First Post Content',
-    'datePublished': '11 Aug, 2020',
-    'postCategory': 'Technology'
-}, {
-    'author': 'Hardeep Kumar',
-    'title': 'Blog Post 2',
-    'content': 'Second Post Content',
-    'datePublished': '11 Aug, 2020',
-    'postCategory': 'Technology'
-}]
 
 
 # Home page route
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('home.html', posts=posts)
+    return render_template('home.html')
 
 
 # about page route
@@ -38,7 +24,8 @@ def about():
 # blog page route
 @app.route('/blog')
 def blog():
-    return render_template('blog.html', title='Blog')
+    posts = Post.query.all()
+    return render_template('blog.html', title='Blog', posts=posts)
 
 
 # contact page route
@@ -131,6 +118,22 @@ def account():
                            title='Account',
                            imageFile=imageFile,
                            form=form)
+
+
+@app.route('/post/new', methods=['GET', 'POST'])
+@login_required
+def newPost():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.post_title.data,
+                    content=form.post_content.data,
+                    author=current_user,
+                    post_category=form.post_category.data)
+        db.session.add(post)
+        db.session.commit()
+        flash('Post has been created!', 'success')
+        return redirect(url_for('blog'))
+    return render_template('create_new_post.html', title='New Post', form=form)
 
 
 # 404 error handling route

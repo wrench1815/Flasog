@@ -1,20 +1,8 @@
 {% extends "layout.html" %}
 {% block pageContent %}
-  {% for post in posts %}
-    <div class="pb-4">
-      <div class="card " style="width: 18rem;">
-        {# <img src="https://source.unsplash.com/600x400/?coding,programming" class="card-img-top" alt="..."> #}
-        <div class="card-body">
-          <div class="">
-            <a class="font-weight-bold text-primary bg-white p-1 border border-bottom-1 border-top-0 border-left-0 border-right-0 border-secondary shadow-sm" style="font-size: 13px" href="#">{{ post.postCategory }}</a>
-            <p class="my-1 mx-0" style="font-size: 15px">{{ post.datePublished }}</p>
-          </div>
-          <h2 class="card-title font-weight-bold">{{ post.title }}</h2>
-          <p class="card-text">{{ post.content }}</p>
-          {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
-        </div>
-      </div>
-    </div>
-  {% endfor %}
-  
+  <div class="text-center bg-white py-2 shadow">
+    <h1 style="color: #011627;">Welcome to Flasog</h1>
+    <p class="text-secondary">Everything Flask and Python</p>
+    <img class="w-50" src="/static/images/undraw_dreamer_gxxi.svg" alt="">
+  </div>
 {% endblock pageContent %}
