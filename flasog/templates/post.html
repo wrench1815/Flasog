@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block pageContent %}
+  <div class="container-fluid">
+    <div class="pb-4">
+      {# <div class="container justify-content-center" style="width: 18rem;"> #}
+      <div class="card" style="width: 18rem;">
+        {# <img src="https://source.unsplash.com/600x400/?coding,programming" class="card-img-top" alt="..."> #}
+        <div class="card-body shadow">
+          <div class="">
+            <a class="font-weight-bold p-1" style="font-size: 13px; border-radius: 4px;" href="#">{{ post.post_category }}</a>
+            {% if post.author == current_user %}
+              <span class="">
+                <a class="btn btn-success btn-sm" href="{{ url_for('updatePost', post_id = post.id) }}">Update</a>
+                <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#deleteModal">Delete</button>
+              </span>
+            {% endif %}
+            <hr class="bg-secondary mt-1">
+            <p class="my-1 mx-0" style="font-size: 15px">{{ post.datePublished }}</p>
+          </div>
+          <h2 class="card-title font-weight-bold" style="color: #011627;">{{ post.title }}</h2>
+          <p class="card-text">{{ post.content }}</p>
+          <hr class="bg-secondary mb-0">
+          <div class="flex mt-1">
+            <img class="rounded-circle border border-secondary" style="width: 30px;" src="{{ url_for('static',filename='profileImages/' + post.author.profile_image) }}" alt="">
+            <a href="#"><small  href="#">{{ post.author.username }}</small></a>
+            <small> - </small>
+            <small class="text-muted">{{ post.date_posted.strftime('%d-%b-%Y') }}</small>
+          </div>
+          
+          {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+        </div>
+      </div>
+    </div>
+  </div>
+  {# Delete Modal #}
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete the Post?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <form action="{{ url_for('deletePost', post_id = post.id) }}" method="POST">
+            <input class="btn btn-danger" type="submit" value="Delete">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock pageContent %}

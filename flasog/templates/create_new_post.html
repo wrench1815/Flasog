@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block pageContent %}
-  {# <div class="container"> #}
+  <div class="container">
     <div class="form-group p-4 bg-white shadow">
       <div class="form-group">
         <form method="post", action="">
           <fieldset class="form-group">
-            <legend class="border-bottom mb-4">New Post</legend>
+            <legend class="border-bottom mb-4">{{ legend }}</legend>
             {{ form.hidden_tag() }}
 
             {# Post Title field #}
@@ -73,5 +73,5 @@
         </form>
       </div>
     </div>
-  {# </div> #}
+  </div>
 {% endblock pageContent %}

@@ -1,11 +1,11 @@
 import os
 import secrets
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from flasog import app, db, bcrypt
 from flasog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from flasog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
-from PIL import Image
+from PIL import Image, ImageOps
 
 
 # Home page route
@@ -89,12 +89,18 @@ def save_profile_picture(form_profile_picture):
     pp_name = random_hex + pp_ext
     pp_path = os.path.join(app.root_path, 'static/profileImages', pp_name)
 
-    output_size = (100, 100)
-    scaled_pp = Image.open(form_profile_picture)
-    scaled_pp.thumbnail(output_size)
+    # output_size = (100, 100)
+    # scaled_pp = Image.open(form_profile_picture)
+    # scaled_pp.thumbnail(output_size)
+    if pp_ext == '.svg':
+        form_profile_picture.save(pp_path)
+        return pp_name
+    else:
+        pp = Image.open(form_profile_picture)
+        resized_pp = ImageOps.fit(pp, (100, 100))
 
-    scaled_pp.save(pp_path)
-    return pp_name
+        resized_pp.save(pp_path)
+        return pp_name
 
 
 # account page route
@@ -120,7 +126,7 @@ def account():
                            form=form)
 
 
-@app.route('/post/new', methods=['GET', 'POST'])
+@app.route('/blog/new', methods=['GET', 'POST'])
 @login_required
 def newPost():
     form = PostForm()
@@ -133,7 +139,48 @@ def newPost():
         db.session.commit()
         flash('Post has been created!', 'success')
         return redirect(url_for('blog'))
-    return render_template('create_new_post.html', title='New Post', form=form)
+    return render_template('create_new_post.html',
+                           title='New Post',
+                           form=form,
+                           legend='New Post')
+
+
+@app.route('/blog/<int:post_id>')
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', title=post.title, post=post)
+
+
+@app.route('/blog/<int:post_id>/update', methods=['GET', 'POST'])
+@login_required
+def updatePost(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title, post.content, post.post_category = form.post_title.data, form.post_content.data, form.post_category.data
+        db.session.commit()
+        flash('The post has been updated Successfully!', 'success')
+        return redirect(url_for('post', post_id=post.id))
+    elif request.method == 'GET':
+        form.post_title.data, form.post_content.data, form.post_category.data = post.title, post.content, post.post_category
+    return render_template('create_new_post.html',
+                           title='Update Post',
+                           form=form,
+                           legend='Update Post')
+
+
+@app.route('/blog/<int:post_id>/delete', methods=['POST'])
+@login_required
+def deletePost(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('The post has been Deleted!', 'success')
+    return redirect(url_for('blog'))
 
 
 # 404 error handling route

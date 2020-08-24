@@ -3,7 +3,8 @@
   <div class="container-fluid">
     {% for post in posts %}
       <div class="pb-4">
-        <div class="card " style="width: 18rem;">
+        {# <div class="container justify-content-center" style="width: 18rem;"> #}
+        <div class="card" style="width: 18rem;">
           {# <img src="https://source.unsplash.com/600x400/?coding,programming" class="card-img-top" alt="..."> #}
           <div class="card-body shadow">
             <div class="">
@@ -11,7 +12,7 @@
               <hr class="bg-secondary mt-1">
               <p class="my-1 mx-0" style="font-size: 15px">{{ post.datePublished }}</p>
             </div>
-            <h2 class="card-title font-weight-bold">{{ post.title }}</h2>
+            <h2><a class="card-title font-weight-bold" style="color: #011627;" href="{{ url_for('post', post_id = post.id) }}">{{ post.title }}</a></h2>
             <p class="card-text">{{ post.content }}</p>
             <hr class="bg-secondary mb-0">
             <div class="flex mt-1">
