@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
   <head>
+  <style>
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Varela', sans-serif;
+      color: #011627;
+    }
+
+    p, input, button, select, optgroup, textarea, span, div, a {
+      font-family: 'Sarabun', sans-serif;
+      color: #011627;
+    }
+
+    p{
+      font-size: 17px;
+    }
+  </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun&family=Varela&display=swap" rel="stylesheet">
     {# 
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="shortcut icon" type="image/png" href="/img/icon-192x192.png">
@@ -28,7 +44,7 @@
     {# Navbar #}
     <header class="site-header sticky-top">
       <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
-        <a class="navbar-brand font-weight-bold" style="font-size: 28px" href="{{ url_for('home') }}">Flasog</a>
+        <a class="navbar-brand font-weight-bold" style="font-size: 28px; font-family: 'Varela', sans-serif;" href="{{ url_for('home') }}">Flasog</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -76,20 +92,20 @@
       </nav>
     </header>
 
-    <div class="container pt-4">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
-          <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-              {{ message }}
+          <div class="container pt-4">
+            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                {{ message }}
+            </div>
           </div>
         {% endfor %}
       {% endif %}
     {% endwith %}
-    </div>
 
     {% block pageContent %}
     

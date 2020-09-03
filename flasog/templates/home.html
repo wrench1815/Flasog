@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block pageContent %}
   <div class="container-fluid">
-    <div class="text-center bg-white py-2 shadow">
-      <h1 style="color: #011627;">Welcome to Flasog</h1>
+    <div class="text-center bg-white py-4 shadow">
+      <h1>Welcome to Flasog</h1>
       <p class="text-secondary">Everything Flask and Python</p>
-      <img class="w-50" src="/static/images/undraw_dreamer_gxxi.svg" alt="">
+      <img class="img-fluid align-self-center my-4 px-2" style="width: 700px;" src="{{ url_for('static', filename='images/undraw_dreamer_gxxi.svg') }}" alt="Welcome Image">
     </div>
   </div>
 {% endblock pageContent %}
