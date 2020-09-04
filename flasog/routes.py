@@ -6,13 +6,14 @@ from flasog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostFor
 from flasog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 from PIL import Image, ImageOps
+from flasog.email import send_email
 
 
 # Home page route
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', title='Home')
 
 
 # about page route
@@ -49,6 +50,10 @@ def register():
                     password=hashedPassword)
         db.session.add(user)
         db.session.commit()
+        send_email(app.config['FLASOG_ADMIN'],
+                   'New User Sign UP',
+                   '/email/new_user',
+                   user=form.username.data)
         flash('Account Created Successfully! You can now Log In.', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
@@ -78,6 +83,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
+    flash('You have been Successfully Loged out.', 'success')
     return redirect(url_for('home'))
 
 

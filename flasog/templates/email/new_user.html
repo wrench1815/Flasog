@@ -1,0 +1,8 @@
+{% extends "email/mail_base.html" %}
+
+{% block mail_content %}
+<div class="container mt-4">
+  <h1>New User Sign up</h1>
+  <p>A new User {{ user }}</p>
+</div>
+{% endblock mail_content %}

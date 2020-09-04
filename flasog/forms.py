@@ -3,15 +3,24 @@ from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from flasog.models import User
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
 
 
 class RegistrationForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
-    username = StringField('Username',
-                           validators=[DataRequired(),
-                                       Length(min=2, max=20)])
+    username = StringField(
+        'Username',
+        validators=[
+            DataRequired(),
+            Length(min=2, max=20),
+            Regexp(
+                '^[A-Za-z][A-Za-z0-9_]*$',
+                flags=0,
+                message=
+                "The username must start with a letter and contain only letter, numbers and underscore('_')"
+            )
+        ])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField(
