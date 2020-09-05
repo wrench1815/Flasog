@@ -6,16 +6,16 @@ from flask_bootstrap import Bootstrap
 from flask_mail import Mail
 import os
 from flask_migrate import Migrate
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = os.environ.get(
-    'SECRET_KEY'
-) or 'd4121fbc66d4bf9370ea11890096d19e72a544a7aa11e53c4fe2299dc5a84f5c'
-app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER',
-                                           'smtp.googlemail.com')
-app.config['MAIL_PORT'] = os.environ.get('MAIL_PORT', '587')
-app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
+app.config['MAIL_PORT'] = os.environ.get('MAIL_PORT')
+app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS')
 # app.config['MAIL_USE_SSL'] = os.environ.get('MAIL_USE_SSL', 'True')
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
