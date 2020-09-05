@@ -52,9 +52,17 @@ def register():
         db.session.commit()
         send_email(app.config['FLASOG_ADMIN'],
                    'New User Sign UP',
-                   '/email/new_user',
+                   'email/new_user',
                    user=form.username.data)
-        flash('Account Created Successfully! You can now Log In.', 'success')
+        token = user.generate_confirmation_token()
+        send_email(user.email,
+                   'Confirm Your Account',
+                   'email/confirm',
+                   user=user,
+                   token=token)
+        flash(
+            'A Confirmation Email was sent Successfully. Please Verify your Email to Login!',
+            'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
@@ -85,6 +93,21 @@ def logout():
     logout_user()
     flash('You have been Successfully Loged out.', 'success')
     return redirect(url_for('home'))
+
+
+@app.route('/confirm/<token>')
+@login_required
+def confirm(token):
+    if current_user.confirmed:
+        return redirect(url_for('home'))
+    elif current_user.confirm(token):
+        db.session.commit()
+        flash('Your account has been verified! Welcome to Flasog!', 'success')
+        return redirect(url_for('home'))
+    else:
+        flash('The confirmation link is either invalid or has been expired.',
+              'warning')
+        return redirect(url_for('home'))
 
 
 # function to save uploaded Profile Picture on server

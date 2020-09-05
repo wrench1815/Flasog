@@ -1,0 +1,14 @@
+<p>Dear {{ user.username }},
+
+    Welcome to Flasog!
+
+    To access the Website Please Conform your Account using the Following Link:
+
+    {{ url_for('confirm', token=token, _external=True) }}
+
+    Sinceraly,
+
+    Flasog
+
+    Note: replies to this email address are not monitored.
+</p>
