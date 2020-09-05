@@ -1,1 +1,3 @@
-New User Sign Up
+<h1>New User Sign up</h1>
+
+<p>A new User {{ user }}</p>
