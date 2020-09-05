@@ -2,9 +2,9 @@
 {% block pageContent %}
 {% set active_page = "about" %}
   <section class="container-fluid bg-white mt-4">
-    <div class="text-center">
+    <div class="text-center bg-white shadow">
       <h1 class="py-4" style="font-family: 'Varela', sans-serif;">About me</h1>
-      <div class="container-fluid bg-white shadow" style="background-image: url({{ url_for('static', filename='shapes/2.svg') }}); background-repeat: no-repeat; background-position: center center; background-size: fit;">
+      <div class="container-fluid" style="background-image: url({{ url_for('static', filename='shapes/2.svg') }}); background-repeat: no-repeat; background-position: center center; background-size: fit;">
         <div class="media d-flex flex-wrap-reverse pb-4">
           <div class="media-body col-12 align-self-center text-center py-2 bg-white shadow-lg">
             <p style="font-family: 'Sarabun', sans-serif;">Hi there!</p>
