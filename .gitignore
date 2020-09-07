@@ -18,6 +18,7 @@ tests/
 
 # database
 site.db
+site.sqlite
 
 # Temporary static files
 f5c4bfcf9fcf859f.png
