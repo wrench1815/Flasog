@@ -18,7 +18,7 @@
             <p class="my-1 mx-0" style="font-size: 15px">{{ post.datePublished }}</p>
           </div>
           <h2 class="card-title font-weight-bold" style="color: #011627;">{{ post.title }}</h2>
-          <p class="card-text">{{ post.content }}</p>
+          <div>{{ post.content }}</div>
           <hr class="bg-secondary mb-0">
           <div class="flex mt-1">
             <img class="rounded-circle border border-secondary" style="width: 30px;" src="{{ url_for('static',filename='profileImages/' + post.author.profile_image) }}" alt="">

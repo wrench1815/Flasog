@@ -1,11 +1,12 @@
 {% extends "bootstrap/base.html" %}
 
 {% block html_attribs %}
-  lang="en" class="h-100"
+  lang="en" class=""
 {% endblock html_attribs %}
 
 {% block body_attribs %}
-  class="bg-light d-flex flex-column h-100"
+  class="bg-light d-flex flex-column"
+  style="min-height: 100vh;"
 {% endblock body_attribs %}
 
 {% block head %}
@@ -88,23 +89,23 @@
 {% endblock navbar %}
 
 {% block content %}
+  <div class="mt-0">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          {# <div class="container"> #}
+            <div class="container alert mt-3 alert-{{ category }}" role="alert">
+              {{ message }}
+            </div>
+          {# </div> #}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for category, message in messages %}
-        <div class="container pt-4">
-          <div class="alert alert-{{ category }}" role="alert">
-            {{ message }}
-          </div>
-        </div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-
-  {% block pageContent %}
-  
-  {% endblock pageContent %}
-
+    {% block pageContent %}
+    
+    {% endblock pageContent %}
+  </div>
   <!-- Footer -->
     <br class="m-4"></br>
     <footer class="footer bg-dark mt-auto py-5 text-center">
