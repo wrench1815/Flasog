@@ -22,7 +22,7 @@
           <hr class="bg-secondary mb-0">
           <div class="flex mt-1">
             <img class="rounded-circle border border-secondary" style="width: 30px;" src="{{ url_for('static',filename='profileImages/' + post.author.profile_image) }}" alt="">
-            <a href="#"><small  href="#">{{ post.author.username }}</small></a>
+            <a href="{{ url_for('user_posts', username=post.author.username) }}"><small>{{ post.author.username }}</small></a>
             <small> - </small>
             <small class="text-muted">{{ post.date_posted.strftime('%d-%b-%Y') }}</small>
           </div>

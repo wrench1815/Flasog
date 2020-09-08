@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block pageContent %}
   <div class="container-fluid mt-4">
+  <h1 class="mb-4">Posts by {{ user.username }} ({{ posts.total }})</h1>
     {% for post in posts.items %}
       <div class="pb-4">
         {# <div class="container justify-content-center" style="width: 18rem;"> #}
@@ -33,7 +34,7 @@
             {% if posts.page == page_num %}
               <a class="btn btn-dark shadow mx-1">{{ page_num }}</a>
             {% else %}
-              <a class="btn btn-outline-dark shadow mx-1" href="{{ url_for('blog', page=page_num) }}">{{ page_num }}</a>
+              <a class="btn btn-outline-dark shadow mx-1" href="{{ url_for('user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
             {% endif %}
           {# <div class="d-inline-flex">
             <ul class="pagination">
