@@ -10,7 +10,7 @@
           <h1 class="" style="color: #011627;">{{ current_user.username }}</h1>
           <p class="">{{ current_user.first_name }} {{ current_user.last_name }}</p>
           <p class="text-secondary">{{ current_user.email }}</p>
-          <a class="btn btn-outline-dark" href="{{ url_for('logout') }}">logout</a>
+          <a class="btn btn-outline-dark" href="{{ url_for('users.logout') }}">logout</a>
         </div>
     </div>
 

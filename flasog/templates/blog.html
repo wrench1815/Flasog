@@ -12,12 +12,12 @@
               <hr class="bg-secondary mt-1">
               <p class="my-1 mx-0" style="font-size: 15px">{{ post.datePublished }}</p>
             </div>
-            <h2><a class="card-title font-weight-bold" style="color: #011627;" href="{{ url_for('post', post_id = post.id) }}">{{ post.title }}</a></h2>
+            <h2><a class="card-title font-weight-bold" style="color: #011627;" href="{{ url_for('posts.post', post_id = post.id) }}">{{ post.title }}</a></h2>
             <p>{{ post.content }}</p>
             <hr class="bg-secondary mb-0">
             <div class="flex mt-1">
               <img class="rounded-circle border border-secondary" style="width: 30px;" src="{{ url_for('static',filename='profileImages/' + post.author.profile_image) }}" alt="">
-              <a href="{{ url_for('user_posts', username=post.author.username) }}"><small>{{ post.author.username }}</small></a>
+              <a href="{{ url_for('users.user_posts', username=post.author.username) }}"><small>{{ post.author.username }}</small></a>
               <small> - </small>
               <small class="text-muted">{{ post.date_posted.strftime('%d-%b-%Y') }}</small>
             </div>
@@ -31,13 +31,13 @@
         {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
           {% if page_num %}
             {% if posts.page == page_num %}
-              <a class="btn btn-dark shadow mx-1">{{ page_num }}</a>
+              <a class="btn btn-dark shadow mx-1 rounded-circle" style="width: 38px; height: 38px;">{{ page_num }}</a>
             {% else %}
-              <a class="btn btn-outline-dark shadow mx-1" href="{{ url_for('blog', page=page_num) }}">{{ page_num }}</a>
+              <a class="btn btn-outline-dark shadow mx-1 rounded-circle"  style="width: 38px; height: 38px;" href="{{ url_for('posts.blog', page=page_num) }}">{{ page_num }}</a>
             {% endif %}
           {# <div class="d-inline-flex">
             <ul class="pagination">
-              <li class="page-item m-2"><a class="page-link" href="{{ url_for('blog', page=page_num) }}">{{ page_num }}</a></li>
+              <li class="page-item m-2"><a class="page-link" href="{{ url_for('posts.blog', page=page_num) }}">{{ page_num }}</a></li>
             </ul>
           </div> #}
           {% else %}
