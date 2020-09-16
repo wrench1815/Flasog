@@ -3,8 +3,7 @@ from flask_mail import Message
 from flasog import mail
 import secrets
 import os
-from flasog import app
-from flask import url_for
+from flask import current_app, url_for
 
 
 # function to save uploaded Profile Picture on server
@@ -13,7 +12,8 @@ def save_profile_picture(form_profile_picture):
     random_hex = secrets.token_hex(8)
     _, pp_ext = os.path.splitext(form_profile_picture.filename)
     pp_name = random_hex + pp_ext
-    pp_path = os.path.join(app.root_path, 'static/profileImages', pp_name)
+    pp_path = os.path.join(current_app.root_path, 'static/profileImages',
+                           pp_name)
 
     if pp_ext == '.svg':
         form_profile_picture.save(pp_path)

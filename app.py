@@ -5,7 +5,9 @@
 #
 #  run file for Flasog
 ###################################
-from flasog import app
+from flasog import create_app
+
+app = create_app()
 
 if __name__ == "__main__":
     app.run()

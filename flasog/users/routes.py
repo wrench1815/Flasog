@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, flash, redirect, request,
 from flasog.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm
 from flasog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
-from flasog import bcrypt, db, app
+from flasog import bcrypt, db
 from flasog.users.utils import save_profile_picture, send_reset_email
 
 users = Blueprint('users', __name__)
@@ -98,7 +98,7 @@ def reset_token(token):
     user = User.verify_reset_token(token)
     if user is None:
         flash('This is an Invalid or Expired Token', 'warning')
-        return redirect(url_for('reset_request'))
+        return redirect(url_for('users.reset_request'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
         hashedPassword = bcrypt.generate_password_hash(form.password.data)
@@ -111,7 +111,7 @@ def reset_token(token):
                            form=form)
 
 
-@app.route('/reset_password', methods=['GET', 'POST'])
+@users.route('/reset_password', methods=['GET', 'POST'])
 def reset_request():
     if current_user.is_authenticated:
         return redirect(url_for('users.account'))
@@ -123,6 +123,6 @@ def reset_request():
             'An email has been sent with instructions to reset your password',
             'info')
         return redirect(url_for('users.login'))
-    return render_template('reset_request.html',
+    return render_template('users.reset_request.html',
                            title='Reset Passord',
                            form=form)
