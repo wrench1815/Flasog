@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block pageContent %}
+<section class="container-fluid mb-2  ">
+  <div class="container-fluid bg-white py-4"
+    style="background-image: url({{ url_for('static', filename='shapes/9.svg') }}); background-repeat: no-repeat; background-position: center center; background-size: cover;">
+    <img class="img-fluid d-block mx-auto"
+      src="{{ url_for('static', filename='images/page_not_found_su7k.svg') }}" style="width: 718px;"
+      alt="404 Error Image">
+    <div class="text-center mt-4 py-2 px-2 bg-white shadow" style="margin: 0 auto; border-radius: 12px 5px;">
+      <h1>Content Not Found</h1>
+      <p>Are you sure you have right address?</p>
+      <p>It seems the content was removed. Let's go back <a href="{{ url_for('main.home') }}">Home.</a></p>
+    </div>
+  </div>
+</section>
+{% endblock pageContent %}
+{# media-body col-12 align-self-center text-center py-2 bg-primary shadow-lg" #}

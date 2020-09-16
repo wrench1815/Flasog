@@ -1,7 +1,7 @@
 from flasog import models
 from flask_login import login_required, current_user
 from flasog import db
-from flasog.post.forms import PostForm
+from flasog.posts.forms import PostForm
 from flasog.models import Post
 from flask import Blueprint, flash, redirect, url_for, render_template, abort, request
 

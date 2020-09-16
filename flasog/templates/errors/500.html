@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block pageContent %}
+<section class="container-fluid mb-2  ">
+  <div class="container-fluid bg-white py-4"
+    style="background-image: url({{ url_for('static', filename='shapes/9.svg') }}); background-repeat: no-repeat; background-position: center center; background-size: cover;">
+    <img class="img-fluid d-block mx-auto"
+      src="{{ url_for('static', filename='images/server_down_s4lk.svg') }}" style="width: 650px;"
+      alt="500 Error Image">
+    <div class="text-center mt-4 py-2 px-2 bg-white shadow" style="margin: 0 auto;">
+      <h1>Server Error</h1>
+      <p>It seems the Server is having some problems.</p>
+      <p>Pease come back some other time, We'll fix everything on our side.</p>
+    </div>
+  </div>
+</section>
+{% endblock pageContent %}
+{# media-body col-12 align-self-center text-center py-2 bg-primary shadow-lg" #}

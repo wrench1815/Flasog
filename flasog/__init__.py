@@ -30,10 +30,12 @@ def create_app(config_class=Config):
 
     from flasog.main.routes import main
     from flasog.users.routes import users
-    from flasog.post.routes import posts
+    from flasog.posts.routes import posts
+    from flasog.errors.error_handlers import errors
 
     app.register_blueprint(main)
     app.register_blueprint(users)
     app.register_blueprint(posts)
+    app.register_blueprint(errors)
 
     return app
