@@ -10,109 +10,125 @@
 {% endblock body_attribs %}
 
 {% block head %}
-<!-- Required meta tags -->
+  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun&family=Varela&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
+
+  {# Style css and Font Icon #}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='fonts/remixicon/remixicon.css') }}">
+
+  {# <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon"> #}
 
   <title>Flasog - {{ title }}</title>
 
   <style>
-    h1, h2, h3, h4, h5, h6 {
-      font-family: 'Varela', sans-serif;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      color: #011627;
-    }
-
-    p, input, button, select, optgroup, textarea, span, div, a {
-      font-family: 'Sarabun', sans-serif;
-    }
-
-    p, input, button, select, optgroup, textarea, span, div{
-      color: #011627;
-    }
-
-    p{
-      font-size: 17px;
-    }
+    
   </style>
 
 {% endblock head %}
 
-{% block navbar %}
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow site-header sticky-top">
-    <a class="navbar-brand font-weight-bold" style="font-size: 28px; font-family: 'Varela', sans-serif;" href="{{ url_for('main.home') }}">Flasog</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse font-weight-bold" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('posts.blog') }}">Blog</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.contact') }}">Contact me</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.about') }}">About me</a>
-        </li>
-      </ul>
-      <div class="navbar-nav">
-      {% if current_user.is_authenticated %}
-        <li class="nav-item">
-          <a class="btn btn-outline-dark" href="{{ url_for('posts.newPost') }}">New Post</a>
-        </li>
-        <div class="m-1"></div>
-        <li class="nav-item">
-          <a class="btn btn-outline-dark" href="{{ url_for('users.account') }}">Account</a>
-        </li>
-        <div class="m-1"></div>
-        <li class="nav-item">
-          <a class="btn btn-outline-dark" href="{{ url_for('users.logout') }}">logout</a>
-        </li>
-      {% else %}
-        <li class="nav-item">
-          <a class="btn btn-outline-dark" href="{{ url_for('users.login') }}">Login</a>
-        </li>
-        <div class="m-1"></div>
-        <li class="nav-item">
-          <a class="btn btn-outline-dark" href="{{ url_for('users.register') }}">Register</a>
-        </li>
-      {% endif %}
-      </div>
-    </div>
-  </nav>
-{% endblock navbar %}
-
 {% block content %}
-  <div class="mt-0">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          {# <div class="container"> #}
-            <div class="container alert mt-3 alert-{{ category }}" role="alert">
-              {{ message }}
-            </div>
-          {# </div> #}
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+  <div class="">
+  <div class="d-flex">
+    <!-- Vertical navbar -->
+    <div class="vertical-nav bg-white" id="sidebar">
+
+      <ul class="nav flex-column bg-white mb-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/" data-toggle="tooltip" title="Home" data-placement="left">
+            <i class="nav-size ri-home-2-line"></i>
+            {# Home #}
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('posts.blog') }}" data-toggle="tooltip" title="Blog" data-placement="left">
+            <i class="nav-size ri-draft-line"></i>
+            {# Blog #}
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('main.contact') }}" data-toggle="tooltip" title="Contact me" data-placement="left">
+            <i class="nav-size ri-chat-smile-3-line"></i>
+            {# Contact me #}
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('main.about') }}" data-toggle="tooltip" title="About me" data-placement="left">
+            <i class="nav-size ri-contacts-line"></i>
+            {# About me #}
+          </a>
+        </li>
+
+        <div class="down-nav">
+        {% if current_user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('posts.newPost') }}" data-toggle="tooltip" title="New Post" data-placement="left">
+              <i class="nav-size ri-file-add-line"></i>
+              {# New Post #}
+            </a>
+          </li>
+          {# <div class="m-1"></div> #}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('users.account') }}" data-toggle="tooltip" title="Account" data-placement="left">
+              <i class="nav-size ri-user-line"></i>
+              {# Account #}
+            </a>
+          </li>
+          {# <div class="m-1"></div> #}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('users.logout') }}" data-toggle="tooltip" title="Logout" data-placement="left">
+              <i class="nav-size ri-logout-box-line"></i>
+              {# logout #}
+            </a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('users.login') }}" data-toggle="tooltip" title="Login" data-placement="left">
+              <i class="nav-size ri-login-box-line"></i>
+              {# Login #}
+            </a>
+          </li>
+          <div class="m-1"></div>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('users.register') }}" data-toggle="tooltip" title="Register" data-placement="left">
+              <i class="nav-size ri-user-add-line"></i>
+              {# Register #}
+            </a>
+          </li>
+        {% endif %}
+        </div>
+      </ul>
+    </div>
+    <!-- End vertical navbar -->
+  </div>
+  
+  <div class="page-content">
+    <div class="mt-0">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            {# <div class="container"> #}
+              <div class="container alert mt-3 alert-{{ category }}" role="alert">
+                {{ message }}
+              </div>
+            {# </div> #}
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
 
     {% block pageContent %}
     
     {% endblock pageContent %}
-  </div>
-  <!-- Footer -->
+
+    <!-- Footer -->
     <br class="m-4"></br>
     <footer class="footer bg-dark mt-auto py-5 text-center">
       <div class="container">
@@ -124,14 +140,26 @@
         </span>
       </div>
     </footer>
-
+  </div>
+  </div>
+    
 {% endblock content %}
 
 {% block scripts %}
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"rossorigin="anonymous"><\/script>')</script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <!-- Optional JavaScript -->
+    <!-- For some reason the default method of including scripts doesn't work -->
+    <!-- This is work around, something i copied from Bootstrap Examples -->
+    <script src="{{ url_for('static', filename='assets/popper/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/jquery/jquery-3.5.1.slim.min.js') }}"></script>
+    <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='assets/jquery/jquery-3.5.1.slim.min.js') }}"><\/script>')</script><script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
 
+    <script>
+    $(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
+
+  {{ pagedown.include_pagedown() }}
     {# Moment library to handle time #}
     {# {{ moment.include_moment() }} #}
 {% endblock scripts %}
