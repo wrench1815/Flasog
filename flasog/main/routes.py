@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, current_app, render_template, send_from_directory
+import os
 
 main = Blueprint('main', __name__)
 
@@ -20,3 +21,8 @@ def about():
 @main.route('/contact')
 def contact():
     return render_template('contact.html', title='Contact me')
+
+
+@main.route('/favicon.ico')
+def favicon():
+    return current_app.send_static_file("favicon.ico")

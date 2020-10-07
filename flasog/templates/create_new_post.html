@@ -47,7 +47,12 @@
                   {% endfor %}
                 </div>
               {% else %}
-                {{ form.post_content(class="form-control mb-4") }}
+                {# {{ form.post_content(class="form-control mb-4") }} #}
+                {{ form.post_content(class="form-control mb-4",only_input=True, rows=10) }}
+                <div class="mb-1">Post Preview</div>
+                <div class="border border-secondary p-2">
+                  {{ form.post_content(class="form-control mb-4",only_preview=True) }}
+                </div>
               {% endif %}
             </div>
 

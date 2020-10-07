@@ -3,6 +3,8 @@ from flask import current_app
 from flasog import db, loginManager
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from markdown import markdown
+import bleach
 
 
 @loginManager.user_loader
@@ -51,11 +53,27 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
+    content_html = db.Column(db.Text)
     date_posted = db.Column(db.DateTime,
                             nullable=False,
                             default=datetime.utcnow)
     post_category = db.Column(db.Text, nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    @staticmethod
+    def on_changed_body(target, value, oldvalue, initiator):
+        allowed_tags = [
+            'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i',
+            'img', 'li', 'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'h4',
+            'h5', 'p'
+        ]
+        target.content_html = bleach.linkify(
+            bleach.clean(markdown(value, output_format='html'),
+                         tags=allowed_tags,
+                         strip=True))
+
     def __repr__(self):
         return f"Post('{self.title}','{self.date_posted}')"
+
+
+db.event.listen(Post.content, 'set', Post.on_changed_body)

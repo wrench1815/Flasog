@@ -13,7 +13,13 @@
               <p class="my-1 mx-0" style="font-size: 15px">{{ post.datePublished }}</p>
             </div>
             <h2><a class="card-title font-weight-bold" style="color: #011627;" href="{{ url_for('posts.post', post_id = post.id) }}">{{ post.title }}</a></h2>
-            <p>{{ post.content }}</p>
+            <div>
+              {% if post.content_html %}
+                {{ post.content_html | safe }}
+              {% else %}
+                {{ post.content }}
+              {% endif %}
+            </div>
             <hr class="bg-secondary mb-0">
             <div class="flex mt-1">
               <img class="rounded-circle border border-secondary" style="width: 30px;" src="{{ url_for('static',filename='profileImages/' + post.author.profile_image) }}" alt="">
