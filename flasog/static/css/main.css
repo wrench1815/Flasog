@@ -1,0 +1,102 @@
+/* Font Faces */
+/* Sarabun */
+@font-face {
+  font-family: Sarabun;
+  src: url(/static/fonts/Sarabun/Sarabun-Regular.ttf);
+}
+
+/* Varela */
+@font-face {
+  font-family: Varela;
+  src: url(/static/fonts/Varela/Varela-Regular.ttf);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Varela', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #011627;
+}
+
+p,
+input,
+button,
+select,
+optgroup,
+textarea,
+span,
+div,
+a {
+  font-family: 'Sarabun', sans-serif;
+}
+
+p,
+input,
+button,
+select,
+optgroup,
+textarea,
+span,
+div {
+  color: #011627;
+}
+
+p {
+  font-size: 17px;
+}
+/* Vertical side Nav bar */
+.vertical-nav {
+  min-width: 6rem;
+  width: 6rem;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s;
+}
+
+.page-content {
+  width: calc(100% - 6rem);
+  margin-left: 6rem;
+  transition: all 0.4s;
+}
+
+/* for toggle behavior */
+
+/* #sidebar.active {
+  margin-left: -6rem;
+}
+
+#content.active {
+  width: 100%;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -6rem;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+  #content {
+    width: 100%;
+    margin: 0;
+  }
+  #content.active {
+    margin-left: 6rem;
+    width: calc(100% - 6rem);
+  }
+} */
