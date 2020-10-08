@@ -26,3 +26,7 @@ def contact():
 @main.route('/favicon.ico')
 def favicon():
     return current_app.send_static_file("favicon.ico")
+
+@main.route('/admin')
+def admin():
+    return render_template('')

@@ -16,16 +16,17 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
+    role = db.Column(db.String(20), default='user')
     profile_image = db.Column(db.String(20),
                               nullable=False,
                               default='default.svg')
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.username}','{self.email}','{self.profile_image}')"
+        return f"User('{self.username}','{self.email}','{self.profile_image}','{self.role}')"
 
     def get_reset_token(self, expires_sec=86400):
         """

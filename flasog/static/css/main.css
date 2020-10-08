@@ -57,20 +57,22 @@ p {
 }
 /* Vertical side Nav bar */
 .vertical-nav {
-  min-width: 6rem;
-  width: 6rem;
+  min-width: 3.5rem;
+  width: 3.5rem;
   height: 100vh;
   position: fixed;
+  display: flexbox;
   top: 0;
-  left: 0;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  right: 0;
+  box-shadow: -10px -10px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.4s;
 }
 
 .page-content {
-  width: calc(100% - 6rem);
-  margin-left: 6rem;
+  width: calc(100% - 3.5rem);
+  margin-right: 3.5rem;
   transition: all 0.4s;
+  display: flexbox;
 }
 
 /* for toggle behavior */
@@ -100,3 +102,11 @@ p {
     width: calc(100% - 6rem);
   }
 } */
+
+.nav-size {
+  font-size: 25px;
+}
+
+.down-nav {
+  bottom: 0;
+}
