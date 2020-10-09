@@ -35,7 +35,7 @@
     {# navbar Start #}
     <div>
       <nav class="navbar bg-white vertical-nav">
-        <ul class="navbar-nav mr-auto flex-column">
+        <ul class="navbar-nav mr-auto mb-auto flex-column">
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('main.home') }}" data-toggle="tooltip" title="Home" data-placement="left">
               <i class="nav-size ri-home-2-line"></i>
@@ -61,7 +61,7 @@
             </a>
           </li>
           </ul>
-          <ul class="navbar-nav mr-auto flex-column justify-content-end">
+          <ul class="navbar-nav mr-auto mt-auto flex-column justify-content-end">
           {% if current_user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('posts.newPost') }}" data-toggle="tooltip" title="New Post" data-placement="left">
